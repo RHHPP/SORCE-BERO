@@ -34,7 +34,7 @@ end
 else
 print('\27[1;34mلم يتم حفظ التوكن جرب مره اخره \nToken not saved, try again')
 end 
-os.execute('lua black.lua')
+os.execute('lua Texas.lua')
 end
 if not Redis:get(SshId.."Info:Redis:User") then
 io.write('\27[1;31mارسل معرف المطور الاساسي الان \nDeveloper UserName saved ↡\n\27[0;39;49m')
@@ -45,7 +45,7 @@ Redis:set(SshId.."Info:Redis:User",UserSudo)
 else
 print('\n\27[1;34mلم يتم حفظ معرف المطور الاساسي \nDeveloper UserName not saved\n')
 end 
-os.execute('lua black.lua')
+os.execute('lua Texas.lua')
 end
 if not Redis:get(SshId.."Info:Redis:User:ID") then
 io.write('\27[1;31mارسل ايدي المطور الاساسي الان \nDeveloper ID saved ↡\n\27[0;39;49m')
@@ -56,7 +56,7 @@ Redis:set(SshId.."Info:Redis:User:ID",UserId)
 else
 print('\n\27[1;34mلم يتم حفظ ايدي المطور الاساسي \nDeveloper ID not saved\n')
 end 
-os.execute('lua black.lua')
+os.execute('lua Texas.lua')
 end
 local Informationlua = io.open("Information.lua", 'w')
 Informationlua:write([[
@@ -68,7 +68,7 @@ SudoId = ]]..Redis:get(SshId.."Info:Redis:User:ID")..[[
 }
 ]])
 Informationlua:close()
-local black = io.open("black", 'w')
+local black = io.open("Texas", 'w')
 black:write([[
 cd $(cd $(dirname $0); pwd)
 while(true) do
@@ -77,7 +77,7 @@ done
 ]])
 black:close()
 Redis:del(SshId.."Info:Redis:User:ID");Redis:del(SshId.."Info:Redis:User");Redis:del(SshId.."Info:Redis:Token:User");Redis:del(SshId.."Info:Redis:Token")
-os.execute('chmod +x black;chmod +x black;./black')
+os.execute('chmod +x Texas;chmod +x Texas;./Texas')
 end
 Information = dofile('./Information.lua')
 Sudo_Id = Information.SudoId
@@ -85,10 +85,10 @@ UserSudo = Information.UserSudo
 Token = Information.Token
 UserBot = Information.UserBot
 black = Token:match("(%d+)")
-os.execute('sudo rm -fr .CallBack-Bot/'..black)
-LuaTele = luatele.set_config{api_id=1846213,api_hash='c545c613b78f18a30744970910124d53',session_name=black,token=Token}
+os.execute('sudo rm -fr .CallBack-Bot/'..Texas)
+LuaTele = luatele.set_config{api_id=1846213,api_hash='c545c613b78f18a30744970910124d53',session_name=Texas,token=Token}
 function var(value)
-print(serpent.block(value, {comment=false}))   
+print(serpent.Texas(value, {comment=false}))   
 end 
 function download(url,name)
 if not name then
@@ -116,7 +116,7 @@ local t0 = clock()
 while clock() - t0 <= n do end
 end
 function Dev(msg) 
-if tonumber(msg.sender.user_id) == tonumber(Sudo_Id) or Redis:sismember(black.."Dev",msg.sender.user_id) then
+if tonumber(msg.sender.user_id) == tonumber(Sudo_Id) or Redis:sismember(Texas.."Dev",msg.sender.user_id) then
 ok = true
 else
 ok = false
@@ -142,7 +142,7 @@ end
 end
 function ChannelJoin(id)
 JoinChannel = true
-local chh = Redis:get(black.."chfalse")
+local chh = Redis:get(Texas.."chfalse")
 if chh then
 local url = https.request("https://api.telegram.org/bot"..Token.."/getchatmember?chat_id="..chh.."&user_id="..id)
 data = json:decode(url)
@@ -153,14 +153,14 @@ end
 return JoinChannel
 end
 function send(chat,rep,text,parse,dis,clear,disn,back,markup)
-LuaTele.sendText(chat,rep,text,parse,dis, clear, disn, back, markup)
+LuaTele.sendText(chat,rep,text,parse,dis, clear, disn, Texas, markup)
 end
 if msg.sender and msg.sender.user_id then
-if msg.sender.user_id == tonumber(black) then
+if msg.sender.user_id == tonumber(Texas) then
 return false
 end
-if Redis:get(black.."chsource") then
-chsource = Redis:get(black.."chsource")
+if Redis:get(Texas.."chsource") then
+chsource = Redis:get(Texas.."chsource")
 else
 chsource = "L6L6P"
 end
@@ -191,9 +191,9 @@ end
 if msg.reply_to_message_id ~= 0 then
 local Message_Get = LuaTele.getMessage(msg.chat_id, msg.reply_to_message_id)
 if Message_Get.forward_info then
-local Info_User = Redis:get(black.."Twasl:UserId"..Message_Get.forward_info.date) or 46899864
+local Info_User = Redis:get(Texas.."Twasl:UserId"..Message_Get.forward_info.date) or 46899864
 if text == 'حظر' then
-Redis:sadd(black..'BaN:In:Tuasl',Info_User)  
+Redis:sadd(Texas..'BaN:In:Tuasl',Info_User)  
 return send(msg.chat_id,msg.id,Reply_Status(Info_User,'➢ تم حظره من الصانع').Reply,"md",true)  
 end 
 if text =='الغاء الحظر' or text =='الغاء حظر' then
@@ -317,13 +317,13 @@ return false
 end
 ---ايقاف البوتات
 if text and Redis:get(black..msg.sender.user_id.."stop:bot") then
-Redis:del(black..msg.sender.user_id.."stop:bot")
-Redis:del(black.."screen:on")
-Redis:del(black.."bots:folder")
+Redis:del(Texas..msg.sender.user_id.."stop:bot")
+Redis:del(Texas.."screen:on")
+Redis:del(Texas.."bots:folder")
 userbot = text:gsub("@","")
 for folder in io.popen('ls'):lines() do
 if folder:match('@[%a%d_]') then
-Redis:sadd(black.."bots:folder",folder:gsub("@",""))
+Redis:sadd(Taxas.."bots:folder",folder:gsub("@",""))
 end
 end
 if not Redis:sismember(black.."bots:folder",userbot) then
